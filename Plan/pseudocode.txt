@@ -1,0 +1,29 @@
+pseudocode:
+
+create a 30x30 grid
+
+snake class
+
+functions to move the snake in each direction
+
+function to increase snake size
+
+function to increment score
+
+global variable to store initial location of snake
+
+global variable to store score
+
+global variable to store highest score
+
+global variable for game state
+
+food class
+
+function to place food randomly
+
+function to check for collision
+
+EventHandler for key press
+
+Eventhandler for reset button

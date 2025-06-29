@@ -1,0 +1,30 @@
+		Snake Game Project
+
+Core Features: 
+
+A snake that moves in a grid
+
+can turn left/right/up/down using arrow keys
+
+food is randomly placed inside the grid
+	
+snake grows as it eat
+
+game stops when snake head touches the borders or itself
+
+keep track of the current score and highest score
+
+
+
+extra Features: 
+
+Allow a second player to play using WASD
+
+Reset Score Button
+
+Google Fonts: https://fonts.google.com/specimen/Pixelify+Sans?query=pixel
+
+
+	
+
+	
