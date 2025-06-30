@@ -3,6 +3,20 @@
   margin: 0;
   padding: 0;
 }
-button { 
+
+button {
   all: unset;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+}
+#game-section {
+  display: grid;
+  grid-template-columns: repeat(20, 20px);
+  grid-template-rows: repeat(20, 20px);
 }
