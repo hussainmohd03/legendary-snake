@@ -43,8 +43,6 @@ const generateFoodPosition = () => {
 const moveSnake = () => {
   let snakeHead = { ...snakeLocation[0] }
 
-  snakeLocation.pop()
-
   switch (snakeDirection) {
     case 'right':
       snakeHead.column++
@@ -61,6 +59,10 @@ const moveSnake = () => {
   }
 
   snakeLocation.unshift(snakeHead)
+
+  if (!checkForFoodCollision()) {
+    snakeLocation.pop()
+  }
 }
 
 const displayScore = () => {
@@ -78,6 +80,7 @@ const checkForFoodCollision = () => {
     HighestScore++
     displayScore()
     foodPosition = generateFoodPosition()
+    return true
   }
 }
 
@@ -94,6 +97,7 @@ const checkForGameOver = () => {
   }
 }
 
+const grow = () => {}
 let foodPosition = generateFoodPosition()
 
 /////////////////////////// Game Loop ///////////////////////////
