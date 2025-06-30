@@ -1,6 +1,11 @@
 const gameSection = document.querySelector('#game-section')
+const currentScoreSelector = document.querySelector('#currnet-score')
 
 let snakeLocation = [{ row: 15, column: 15 }]
+
+let currentScore = 0
+
+let HighestScore = 0
 
 let snakeDirection = 'right'
 
@@ -37,7 +42,7 @@ const generateFoodPosition = () => {
 const moveSnake = () => {
   let snakeHead = { ...snakeLocation[0] }
 
-  // snakeLocation.pop()
+  snakeLocation.pop()
 
   switch (snakeDirection) {
     case 'right':
@@ -57,14 +62,29 @@ const moveSnake = () => {
   snakeLocation.unshift(snakeHead)
 }
 
+const checkForFoodCollision = () => {
+  let snakeHead = snakeLocation[0]
+  if (
+    snakeHead.row === foodPosition.row &&
+    snakeHead.column === foodPosition.column
+  ) {
+    currentScore++
+    currentScoreSelector.innerText = currentScore
+    foodPosition = generateFoodPosition()
+  }
+}
+
 let foodPosition = generateFoodPosition()
 
+/////////////////////////// Game Loop ///////////////////////////
 setInterval(() => {
   moveSnake()
   createGame()
+  checkForFoodCollision()
 }, 170)
 
-// Arrow Keys Eventhandler
+/////////////////////////// Eventhandlers ///////////////////////////
+
 const changeDirection = (event) => {
   if (event.key === 'ArrowRight' && snakeDirection !== 'left') {
     snakeDirection = 'right'
@@ -76,5 +96,7 @@ const changeDirection = (event) => {
     snakeDirection = 'down'
   }
 }
+
+/////////////////////////// EventListeners ///////////////////////////
 
 document.addEventListener('keydown', changeDirection)
