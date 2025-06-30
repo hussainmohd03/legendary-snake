@@ -67,7 +67,6 @@ const moveSnake = () => {
 
 const displayScore = () => {
   currentScoreSelector.innerText = currentScore
-  highestScoreSelector.innerText = HighestScore
 }
 
 const checkForFoodCollision = () => {
@@ -77,7 +76,6 @@ const checkForFoodCollision = () => {
     snakeHead.column === foodPosition.column
   ) {
     currentScore++
-    HighestScore++
     displayScore()
     foodPosition = generateFoodPosition()
     return true
@@ -87,24 +85,29 @@ const checkForFoodCollision = () => {
 const checkForGameOver = () => {
   let snakeHead = snakeLocation[0]
 
+  let selfCollision = snakeLocation.slice(1).some((element) => {
+    if (element.row === snakeHead.row && element.column === snakeHead.column) {
+      return true
+    }
+  })
+
   if (
     snakeHead.row === 31 ||
     snakeHead.column === 31 ||
     snakeHead.row === 0 ||
-    snakeHead.column === 0
+    snakeHead.column === 0 ||
+    selfCollision
   ) {
     clearInterval(intervalID)
   }
 }
 
-const grow = () => {}
 let foodPosition = generateFoodPosition()
 
 /////////////////////////// Game Loop ///////////////////////////
 const intervalID = setInterval(() => {
   moveSnake()
   createGame()
-  checkForFoodCollision()
   checkForGameOver()
 }, 170)
 
