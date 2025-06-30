@@ -1,5 +1,6 @@
 const gameSection = document.querySelector('#game-section')
 const currentScoreSelector = document.querySelector('#currnet-score')
+const highestScoreSelector = document.querySelector('#highest-score')
 
 let snakeLocation = [{ row: 15, column: 15 }]
 
@@ -62,6 +63,10 @@ const moveSnake = () => {
   snakeLocation.unshift(snakeHead)
 }
 
+const displayScore = () => {
+  currentScoreSelector.innerText = currentScore
+  highestScoreSelector.innerText = HighestScore
+}
 const checkForFoodCollision = () => {
   let snakeHead = snakeLocation[0]
   if (
@@ -69,7 +74,8 @@ const checkForFoodCollision = () => {
     snakeHead.column === foodPosition.column
   ) {
     currentScore++
-    currentScoreSelector.innerText = currentScore
+    HighestScore++
+    displayScore()
     foodPosition = generateFoodPosition()
   }
 }
