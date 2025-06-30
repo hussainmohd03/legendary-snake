@@ -63,3 +63,18 @@ setInterval(() => {
   moveSnake()
   createGame()
 }, 170)
+
+// Arrow Keys Eventhandler
+const changeDirection = (event) => {
+  if (event.key === 'ArrowRight' && snakeDirection !== 'left') {
+    snakeDirection = 'right'
+  } else if (event.key === 'ArrowLeft' && snakeDirection !== 'right') {
+    snakeDirection = 'left'
+  } else if (event.key === 'ArrowUp' && snakeDirection !== 'down') {
+    snakeDirection = 'up'
+  } else if (event.key === 'ArrowDown' && snakeDirection !== 'up') {
+    snakeDirection = 'down'
+  }
+}
+
+document.addEventListener('keydown', changeDirection)
