@@ -1,3 +1,8 @@
-body { 
-    background-color: red;
+/* ======================================= Reset margins, paddings & button styling  =======================================*/
+* {
+  margin: 0;
+  padding: 0;
+}
+button { 
+  all: unset;
 }
