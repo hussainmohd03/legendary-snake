@@ -67,6 +67,7 @@ const displayScore = () => {
   currentScoreSelector.innerText = currentScore
   highestScoreSelector.innerText = HighestScore
 }
+
 const checkForFoodCollision = () => {
   let snakeHead = snakeLocation[0]
   if (
@@ -80,13 +81,27 @@ const checkForFoodCollision = () => {
   }
 }
 
+const checkForGameOver = () => {
+  let snakeHead = snakeLocation[0]
+
+  if (
+    snakeHead.row === 31 ||
+    snakeHead.column === 31 ||
+    snakeHead.row === 0 ||
+    snakeHead.column === 0
+  ) {
+    clearInterval(intervalID)
+  }
+}
+
 let foodPosition = generateFoodPosition()
 
 /////////////////////////// Game Loop ///////////////////////////
-setInterval(() => {
+const intervalID = setInterval(() => {
   moveSnake()
   createGame()
   checkForFoodCollision()
+  checkForGameOver()
 }, 170)
 
 /////////////////////////// Eventhandlers ///////////////////////////
