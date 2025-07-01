@@ -1,6 +1,8 @@
 const gameSection = document.querySelector('#game-section')
 const currentScoreSelector = document.querySelector('#current-score')
 const highestScoreSelector = document.querySelector('#highest-score')
+const startBtn = document.querySelector('#start-btn')
+const startMsg = document.querySelector('#start-message')
 
 let snakeLocation = [{ row: 15, column: 15 }]
 
@@ -109,11 +111,20 @@ const checkForGameOver = () => {
 let foodPosition = generateFoodPosition()
 
 /////////////////////////// Game Loop ///////////////////////////
-const intervalID = setInterval(() => {
-  moveSnake()
-  createGame()
-  checkForGameOver()
-}, 170)
+
+const gameLoop = () => {
+  const intervalID = setInterval(() => {
+    moveSnake()
+    createGame()
+    checkForGameOver()
+  }, 170)
+}
+
+///////////////////////////  ///////////////////////////
+const startGame = () => {
+  startMsg.style.display = 'none'
+  gameLoop()
+}
 
 /////////////////////////// Eventhandlers ///////////////////////////
 
@@ -132,3 +143,4 @@ const changeDirection = (event) => {
 /////////////////////////// EventListeners ///////////////////////////
 
 document.addEventListener('keydown', changeDirection)
+startBtn.addEventListener('click', startGame)
