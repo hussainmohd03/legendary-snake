@@ -101,11 +101,14 @@ const checkForGameOver = (intervalID) => {
   if (
     snakeHead.row === 31 ||
     snakeHead.column === 31 ||
-    snakeHead.row === -1 ||
-    snakeHead.column === -1 ||
+    snakeHead.row === 0 ||
+    snakeHead.column === 0 ||
     selfCollision
   ) {
-    clearInterval(intervalID)
+    currentScore = 0
+    snakeDirection = 'right'
+    displayScore()
+    snakeLocation = [{ row: 15, column: 15 }]
   }
 }
 
