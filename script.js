@@ -1,8 +1,9 @@
 const gameSection = document.querySelector('#game-section')
 const currentScoreSelector = document.querySelector('#current-score')
 const highestScoreSelector = document.querySelector('#highest-score')
-const startBtn = document.querySelector('#start-btn')
-const startMsg = document.querySelector('#start-message')
+const msgDiv = document.querySelector('#message-div')
+const msg = document.querySelector('#message')
+const btn = document.querySelector('#btn')
 
 let snakeLocation = [{ row: 15, column: 15 }]
 
@@ -88,7 +89,7 @@ const checkForFoodCollision = () => {
   }
 }
 
-const checkForGameOver = () => {
+const checkForGameOver = (intervalID) => {
   let snakeHead = snakeLocation[0]
 
   let selfCollision = snakeLocation.slice(1).some((element) => {
@@ -100,8 +101,8 @@ const checkForGameOver = () => {
   if (
     snakeHead.row === 31 ||
     snakeHead.column === 31 ||
-    snakeHead.row === 0 ||
-    snakeHead.column === 0 ||
+    snakeHead.row === -1 ||
+    snakeHead.column === -1 ||
     selfCollision
   ) {
     clearInterval(intervalID)
@@ -111,19 +112,12 @@ const checkForGameOver = () => {
 let foodPosition = generateFoodPosition()
 
 /////////////////////////// Game Loop ///////////////////////////
-
-const gameLoop = () => {
+const startGame = () => {
   const intervalID = setInterval(() => {
     moveSnake()
     createGame()
-    checkForGameOver()
+    checkForGameOver(intervalID)
   }, 170)
-}
-
-///////////////////////////  ///////////////////////////
-const startGame = () => {
-  startMsg.style.display = 'none'
-  gameLoop()
 }
 
 /////////////////////////// Eventhandlers ///////////////////////////
@@ -143,4 +137,7 @@ const changeDirection = (event) => {
 /////////////////////////// EventListeners ///////////////////////////
 
 document.addEventListener('keydown', changeDirection)
-startBtn.addEventListener('click', startGame)
+btn.addEventListener('click', () => {
+  msgDiv.style.opacity = 0
+  startGame()
+})

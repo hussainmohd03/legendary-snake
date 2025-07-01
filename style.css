@@ -51,3 +51,6 @@ button {
   border-radius: 50px;
   text-align: center;
 }
+#message-div2 {
+  opacity: 0;
+}
