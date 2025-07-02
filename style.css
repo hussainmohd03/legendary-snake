@@ -36,7 +36,7 @@ body {
   display: flex;
   font-size: 30px;
   justify-content: space-between;
-  width: 34%;
+  width: 38%;
   border-radius: 5px;
   border: 5px solid #7aff7a;
   margin-bottom: 10px;
@@ -103,14 +103,15 @@ nav a:hover {
   height: 90%;
   width: 100%;
   background: url('https://static1.srcdn.com/wordpress/wp-content/uploads/2019/12/harry-potter-slytherin-logo.jpg');
-  background-size: contain;
-  background-repeat: round;
+  background-size: cover;
+  background-position: 0%;
+
 }
 
 #hero-section h1 {
   padding-left: 60px;
   padding-top: 200px;
-  font-size: 70px;
+  font-size: 60px;
   color: rgb(176, 176, 176);
 }
 
