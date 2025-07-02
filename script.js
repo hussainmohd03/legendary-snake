@@ -3,7 +3,8 @@ const currentScoreSelector = document.querySelector('#current-score')
 const highestScoreSelector = document.querySelector('#highest-score')
 const msgDiv = document.querySelector('#message-div')
 const msg = document.querySelector('#message')
-const btn = document.querySelector('#btn')
+const singlePlayerBtn = document.querySelector('#singleplayer-btn')
+const multiPlayerBtn = document.querySelector('#multiplayer-btn')
 
 let snakeLocation = [{ row: 15, column: 15 }]
 
@@ -15,9 +16,9 @@ let HighestScore = 0
 
 let snakeDirection = 'right'
 
-let snake2Direction = 'down'
+let snake2Direction = 'left'
 
-let isSinglePlayer = false
+let isSinglePlayer = true
 
 const createGame = () => {
   gameSection.innerHTML = ''
@@ -182,7 +183,7 @@ const checkForGameOver = (intervalID) => {
       selfCollision
     ) {
       currentScore = 0
-      snake2Direction = 'down'
+      snake2Direction = 'left'
       displayScore()
       snake2Location = [{ row: 15, column: 15 }]
     }
@@ -193,6 +194,8 @@ let foodPosition = generateFoodPosition()
 
 /////////////////////////// Game Loop ///////////////////////////
 const startGame = () => {
+  msgDiv.style.opacity = 0
+
   const intervalID = setInterval(() => {
     moveSnake()
     createGame()
@@ -229,7 +232,8 @@ const snake2DirHandler = (event) => {
 
 document.addEventListener('keydown', snake1DirHandler)
 document.addEventListener('keydown', snake2DirHandler)
-btn.addEventListener('click', () => {
-  msgDiv.style.opacity = 0
+singlePlayerBtn.addEventListener('click', startGame)
+multiPlayerBtn.addEventListener('click', () => {
+  isSinglePlayer = false
   startGame()
 })
