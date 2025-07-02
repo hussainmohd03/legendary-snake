@@ -4,6 +4,11 @@
   padding: 0;
 }
 
+a {
+  text-decoration: none;
+  color: rgb(8, 12, 8);
+}
+
 button {
   all: unset;
 }
@@ -15,6 +20,10 @@ body {
   flex-direction: column;
   height: 100vh;
 }
+/* #instructions-body {
+  display: grid;
+  grid-template: 80px 1fr 1fr 1fr / 1fr 1fr 1fr;
+} */
 #game-section {
   display: grid;
   grid-template-columns: repeat(30, 20px);
@@ -51,6 +60,48 @@ button {
   border-radius: 50px;
   text-align: center;
 }
-#message-div2 {
-  opacity: 0;
+
+nav {
+  background-color: rgb(8, 12, 8);
+  height: 10%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+
+nav a {
+  color: white;
+  font-size: 25px;
+}
+
+#hero-section {
+  height: 90%;
+  width: 100%;
+  background: url('https://static1.srcdn.com/wordpress/wp-content/uploads/2019/12/harry-potter-slytherin-logo.jpg');
+  background-size: contain;
+  background-repeat: round;
+}
+
+#hero-section h1 {
+  padding-left: 150px;
+  padding-top: 200px;
+  font-size: 70px;
+  color: rgb(176, 176, 176);
+}
+
+#hero-section button {
+  width: 20%;
+  margin-left: 140px;
+  margin-top: 70px;
+  background-color: rgb(176, 176, 176);
+  font-size: 30px;
+}
+
+#content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

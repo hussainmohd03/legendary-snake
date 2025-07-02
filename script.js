@@ -7,11 +7,17 @@ const btn = document.querySelector('#btn')
 
 let snakeLocation = [{ row: 15, column: 15 }]
 
+let snake2Location = [{ row: 15, column: 15 }]
+
 let currentScore = 0
 
 let HighestScore = 0
 
 let snakeDirection = 'right'
+
+let snake2Direction = 'left'
+
+let isSinglePlayer = false
 
 const createGame = () => {
   gameSection.innerHTML = ''
@@ -27,6 +33,16 @@ const displaySnake = () => {
     snakeSegment.style.gridRow = element.row
     gameSection.appendChild(snakeSegment)
   })
+
+  if (!isSinglePlayer) {
+    snake2Location.forEach((element) => {
+      const snake2Segment = document.createElement('div')
+      snake2Segment.setAttribute('class', 'snake')
+      snake2Segment.style.gridColumn = element.column
+      snake2Segment.style.gridRow = element.row
+      gameSection.appendChild(snake2Segment)
+    })
+  }
 }
 
 const displayFood = () => {
@@ -66,6 +82,29 @@ const moveSnake = () => {
   if (!checkForFoodCollision()) {
     snakeLocation.pop()
   }
+  if (!isSinglePlayer) {
+    let snake2Head = { ...snake2Location[0] }
+    switch (snake2Direction) {
+      case 'right':
+        snake2Head.column++
+        break
+      case 'left':
+        snake2Head.column--
+        break
+      case 'up':
+        snake2Head.row--
+        break
+      case 'down':
+        snake2Head.row++
+        break
+    }
+
+    snake2Location.unshift(snake2Head)
+
+    if (!checkForFoodCollision()) {
+      snake2Location.pop()
+    }
+  }
 }
 
 const displayScore = () => {
@@ -86,6 +125,22 @@ const checkForFoodCollision = () => {
     displayScore()
     foodPosition = generateFoodPosition()
     return true
+  }
+
+  if (!isSinglePlayer) {
+    let snake2Head = snake2Location[0]
+    if (
+      snake2Head.row === foodPosition.row &&
+      snake2Head.column === foodPosition.column
+    ) {
+      if (HighestScore <= currentScore) {
+        HighestScore++
+      }
+      currentScore++
+      displayScore()
+      foodPosition = generateFoodPosition()
+      return true
+    }
   }
 }
 
@@ -109,6 +164,32 @@ const checkForGameOver = (intervalID) => {
     snakeDirection = 'right'
     displayScore()
     snakeLocation = [{ row: 15, column: 15 }]
+  }
+
+  if (!isSinglePlayer) {
+    let snake2Head = snake2Location[0]
+
+    let selfCollision = snake2Location.slice(1).some((element) => {
+      if (
+        element.row === snake2Head.row &&
+        element.column === snake2Head.column
+      ) {
+        return true
+      }
+    })
+
+    if (
+      snake2Head.row === 31 ||
+      snake2Head.column === 31 ||
+      snake2Head.row === 0 ||
+      snake2Head.column === 0 ||
+      selfCollision
+    ) {
+      currentScore = 0
+      snake2Direction = 'left'
+      displayScore()
+      snake2Location = [{ row: 15, column: 15 }]
+    }
   }
 }
 
@@ -136,10 +217,22 @@ const changeDirection = (event) => {
     snakeDirection = 'down'
   }
 }
+const changeDirection2 = (event) => {
+  if (event.key === 'd' && snake2Direction !== 'left') {
+    snake2Direction = 'right'
+  } else if (event.key === 'a' && snake2Direction !== 'right') {
+    snake2Direction = 'left'
+  } else if (event.key === 'w' && snake2Direction !== 'down') {
+    snake2Direction = 'up'
+  } else if (event.key === 's' && snake2Direction !== 'up') {
+    snake2Direction = 'down'
+  }
+}
 
 /////////////////////////// EventListeners ///////////////////////////
 
 document.addEventListener('keydown', changeDirection)
+document.addEventListener('keydown', changeDirection2)
 btn.addEventListener('click', () => {
   msgDiv.style.opacity = 0
   startGame()
