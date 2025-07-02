@@ -27,21 +27,22 @@ const createGame = () => {
 }
 
 const displaySnake = () => {
-  renderSnake(snakeLocation)
+  renderSnake(snakeLocation, 'snake')
   if (!isSinglePlayer) {
-    renderSnake(snake2Location)
+    renderSnake(snake2Location, 'snake2')
   }
 }
 
-const renderSnake = (snakeCord) => {
+const renderSnake = (snakeCord, className) => {
   snakeCord.forEach((element) => {
     const snakeSegment = document.createElement('div')
-    snakeSegment.setAttribute('class', 'snake')
+    snakeSegment.setAttribute('class', className)
     snakeSegment.style.gridColumn = element.column
     snakeSegment.style.gridRow = element.row
     gameSection.appendChild(snakeSegment)
   })
 }
+
 const displayFood = () => {
   const food = document.createElement('div')
   food.setAttribute('class', 'food')
