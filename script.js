@@ -15,7 +15,7 @@ let HighestScore = 0
 
 let snakeDirection = 'right'
 
-let snake2Direction = 'left'
+let snake2Direction = 'down'
 
 let isSinglePlayer = false
 
@@ -26,25 +26,21 @@ const createGame = () => {
 }
 
 const displaySnake = () => {
-  snakeLocation.forEach((element) => {
+  renderSnake(snakeLocation)
+  if (!isSinglePlayer) {
+    renderSnake(snake2Location)
+  }
+}
+
+const renderSnake = (snakeCord) => {
+  snakeCord.forEach((element) => {
     const snakeSegment = document.createElement('div')
     snakeSegment.setAttribute('class', 'snake')
     snakeSegment.style.gridColumn = element.column
     snakeSegment.style.gridRow = element.row
     gameSection.appendChild(snakeSegment)
   })
-
-  if (!isSinglePlayer) {
-    snake2Location.forEach((element) => {
-      const snake2Segment = document.createElement('div')
-      snake2Segment.setAttribute('class', 'snake')
-      snake2Segment.style.gridColumn = element.column
-      snake2Segment.style.gridRow = element.row
-      gameSection.appendChild(snake2Segment)
-    })
-  }
 }
-
 const displayFood = () => {
   const food = document.createElement('div')
   food.setAttribute('class', 'food')
@@ -186,7 +182,7 @@ const checkForGameOver = (intervalID) => {
       selfCollision
     ) {
       currentScore = 0
-      snake2Direction = 'left'
+      snake2Direction = 'down'
       displayScore()
       snake2Location = [{ row: 15, column: 15 }]
     }
@@ -206,7 +202,7 @@ const startGame = () => {
 
 /////////////////////////// Eventhandlers ///////////////////////////
 
-const changeDirection = (event) => {
+const snake1DirHandler = (event) => {
   if (event.key === 'ArrowRight' && snakeDirection !== 'left') {
     snakeDirection = 'right'
   } else if (event.key === 'ArrowLeft' && snakeDirection !== 'right') {
@@ -217,7 +213,7 @@ const changeDirection = (event) => {
     snakeDirection = 'down'
   }
 }
-const changeDirection2 = (event) => {
+const snake2DirHandler = (event) => {
   if (event.key === 'd' && snake2Direction !== 'left') {
     snake2Direction = 'right'
   } else if (event.key === 'a' && snake2Direction !== 'right') {
@@ -231,8 +227,8 @@ const changeDirection2 = (event) => {
 
 /////////////////////////// EventListeners ///////////////////////////
 
-document.addEventListener('keydown', changeDirection)
-document.addEventListener('keydown', changeDirection2)
+document.addEventListener('keydown', snake1DirHandler)
+document.addEventListener('keydown', snake2DirHandler)
 btn.addEventListener('click', () => {
   msgDiv.style.opacity = 0
   startGame()

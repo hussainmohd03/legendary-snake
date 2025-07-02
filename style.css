@@ -51,6 +51,7 @@ body {
   align-items: center;
   gap: 60px;
   font-size: 40px;
+  font-family: plexify;
 }
 
 button {
