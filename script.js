@@ -1,6 +1,8 @@
 const gameSection = document.querySelector('#game-section')
 const currentScoreSelector = document.querySelector('#current-score')
+const currentScore2Selector = document.querySelector('#current-score-2')
 const highestScoreSelector = document.querySelector('#highest-score')
+const highestScore2Selector = document.querySelector('#highest-score-2')
 const msgDiv = document.querySelector('#message-div')
 const msg = document.querySelector('#message')
 const singlePlayerBtn = document.querySelector('#singleplayer-btn')
@@ -12,7 +14,11 @@ let snake2Location = [{ row: 15, column: 15 }]
 
 let currentScore = 0
 
+let currentScore2 = 0
+
 let HighestScore = 0
+
+let HighestScore2 = 0
 
 let snakeDirection = 'right'
 
@@ -57,10 +63,20 @@ const generateFoodPosition = () => {
   return { row, column }
 }
 
-const moveSnake = () => {
+const snakeMovement = () => {
   let snakeHead = { ...snakeLocation[0] }
+  let snakeDir = snakeDirection
+  moveSnake(snakeHead, snakeDir, snakeLocation)
 
-  switch (snakeDirection) {
+  if (!isSinglePlayer) {
+    snakeHead = { ...snake2Location[0] }
+    snakeDir = snake2Direction
+    moveSnake(snakeHead, snakeDir, snake2Location)
+  }
+}
+
+const moveSnake = (snakeHead, snakeDir, snakeCoord) => {
+  switch (snakeDir) {
     case 'right':
       snakeHead.column++
       break
@@ -75,39 +91,18 @@ const moveSnake = () => {
       break
   }
 
-  snakeLocation.unshift(snakeHead)
+  snakeCoord.unshift(snakeHead)
 
   if (!checkForFoodCollision()) {
-    snakeLocation.pop()
-  }
-  if (!isSinglePlayer) {
-    let snake2Head = { ...snake2Location[0] }
-    switch (snake2Direction) {
-      case 'right':
-        snake2Head.column++
-        break
-      case 'left':
-        snake2Head.column--
-        break
-      case 'up':
-        snake2Head.row--
-        break
-      case 'down':
-        snake2Head.row++
-        break
-    }
-
-    snake2Location.unshift(snake2Head)
-
-    if (!checkForFoodCollision()) {
-      snake2Location.pop()
-    }
+    snakeCoord.pop()
   }
 }
 
 const displayScore = () => {
   currentScoreSelector.innerText = currentScore
   highestScoreSelector.innerText = HighestScore
+  currentScore2Selector.innerText = currentScore2
+  highestScore2Selector.innerText = HighestScore2
 }
 
 const checkForFoodCollision = () => {
@@ -131,10 +126,10 @@ const checkForFoodCollision = () => {
       snake2Head.row === foodPosition.row &&
       snake2Head.column === foodPosition.column
     ) {
-      if (HighestScore <= currentScore) {
-        HighestScore++
+      if (HighestScore2 <= currentScore2) {
+        HighestScore2++
       }
-      currentScore++
+      currentScore2++
       displayScore()
       foodPosition = generateFoodPosition()
       return true
@@ -183,7 +178,7 @@ const checkForGameOver = (intervalID) => {
       snake2Head.column === 0 ||
       selfCollision
     ) {
-      currentScore = 0
+      currentScore2 = 0
       snake2Direction = 'left'
       displayScore()
       snake2Location = [{ row: 15, column: 15 }]
@@ -198,7 +193,7 @@ const startGame = () => {
   msgDiv.style.opacity = 0
 
   const intervalID = setInterval(() => {
-    moveSnake()
+    snakeMovement()
     createGame()
     checkForGameOver(intervalID)
   }, 170)
@@ -236,5 +231,7 @@ document.addEventListener('keydown', snake2DirHandler)
 singlePlayerBtn.addEventListener('click', startGame)
 multiPlayerBtn.addEventListener('click', () => {
   isSinglePlayer = false
+  highestScore2Selector.style.opacity = 1
+  currentScore2Selector.style.opacity = 1
   startGame()
 })
