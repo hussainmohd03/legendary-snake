@@ -22,10 +22,7 @@ body {
   font-family: 'Cinzel Decorative', serif;
   background-color: #0f0f0f;
 }
-/* #instructions-body {
-  display: grid;
-  grid-template: 80px 1fr 1fr 1fr / 1fr 1fr 1fr;
-} */
+
 #game-section {
   display: grid;
   grid-template-columns: repeat(30, 22px);
