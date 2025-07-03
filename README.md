@@ -51,13 +51,14 @@ start index.html => windows
 
 ### **_Screenshots_**
 
-#### Main Page Wireframe
+#### Home Page Wireframe
 
-![main](./Plan/MainPage.png)
+![Home Page WireFrame](./Plan/index.png)
 
-#### Instructions Page Wireframe
+#### Game Page Wireframe
 
-![main](./Plan/InstructionsPage.png)
+![Game Page WireFrame](./Plan/gamePage.png)
+
 
 ---
 
