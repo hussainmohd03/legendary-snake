@@ -139,9 +139,15 @@ const checkForFoodCollision = () => {
 
 const checkForGameOver = (intervalID) => {
   let snakeHead = snakeLocation[0]
+  let snake2Head = snake2Location[0]
 
   let selfCollision = snakeLocation.slice(1).some((element) => {
     if (element.row === snakeHead.row && element.column === snakeHead.column) {
+      return true
+    }
+  })
+  let collisionWithSnake2 = snake2Location.some((element) => {
+    if (snakeHead.row === element.row && snakeHead.column === element.column) {
       return true
     }
   })
@@ -151,7 +157,8 @@ const checkForGameOver = (intervalID) => {
     snakeHead.column === 31 ||
     snakeHead.row === 0 ||
     snakeHead.column === 0 ||
-    selfCollision
+    selfCollision ||
+    collisionWithSnake2
   ) {
     currentScore = 0
     snakeDirection = 'right'
@@ -160,12 +167,18 @@ const checkForGameOver = (intervalID) => {
   }
 
   if (!isSinglePlayer) {
-    let snake2Head = snake2Location[0]
-
     let selfCollision = snake2Location.slice(1).some((element) => {
       if (
         element.row === snake2Head.row &&
         element.column === snake2Head.column
+      ) {
+        return true
+      }
+    })
+    let collisionWithSnake1 = snakeLocation.some((element) => {
+      if (
+        snake2Head.row === element.row &&
+        snake2Head.column === element.column
       ) {
         return true
       }
@@ -176,7 +189,8 @@ const checkForGameOver = (intervalID) => {
       snake2Head.column === 31 ||
       snake2Head.row === 0 ||
       snake2Head.column === 0 ||
-      selfCollision
+      selfCollision ||
+      collisionWithSnake1
     ) {
       currentScore2 = 0
       snake2Direction = 'left'
