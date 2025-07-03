@@ -20,7 +20,7 @@ A classic browser-based Snake game built with HTML, CSS, and JavaScript using DO
 
 You can play the game live here:
 
-- Place Surge link here
+- [Legendary Snake](https://legendarysnake.surge.sh/)
 
 #### **🖥️ Run Locally**
 
