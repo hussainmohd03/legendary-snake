@@ -8,21 +8,20 @@ const msg = document.querySelector('#message')
 const singlePlayerBtn = document.querySelector('#singleplayer-btn')
 const multiPlayerBtn = document.querySelector('#multiplayer-btn')
 
-let snakeLocation = [{ row: 15, column: 15 }]
-
-let snake2Location = [{ row: 15, column: 15 }]
-
-let currentScore = 0
-
-let currentScore2 = 0
-
-let HighestScore = 0
-
-let HighestScore2 = 0
-
-let snakeDirection = 'right'
-
-let snake2Direction = 'left'
+const player1 = {
+  snake: [{ row: 15, column: 15 }],
+  direction: 'right',
+  defaultDirection: 'right',
+  score: 0,
+  highestScore: 0
+}
+const player2 = {
+  snake: [{ row: 15, column: 15 }],
+  direction: 'left',
+  defaultDirection: 'left',
+  score: 0,
+  highestScore: 0
+}
 
 let isSinglePlayer = true
 
@@ -33,9 +32,9 @@ const createGame = () => {
 }
 
 const displaySnake = () => {
-  renderSnake(snakeLocation, 'snake')
+  renderSnake(player1.snake, 'snake')
   if (!isSinglePlayer) {
-    renderSnake(snake2Location, 'snake2')
+    renderSnake(player2.snake, 'snake2')
   }
 }
 
@@ -64,14 +63,14 @@ const generateFoodPosition = () => {
 }
 
 const snakeMovement = () => {
-  let snakeHead = { ...snakeLocation[0] }
-  let snakeDir = snakeDirection
-  moveSnake(snakeHead, snakeDir, snakeLocation)
+  let snakeHead = { ...player1.snake[0] }
+  let snakeDir = player1.direction
+  moveSnake(snakeHead, snakeDir, player1.snake)
 
   if (!isSinglePlayer) {
-    snakeHead = { ...snake2Location[0] }
-    snakeDir = snake2Direction
-    moveSnake(snakeHead, snakeDir, snake2Location)
+    snakeHead = { ...player2.snake[0] }
+    snakeDir = player2.direction
+    moveSnake(snakeHead, snakeDir, player2.snake)
   }
 }
 
@@ -99,37 +98,37 @@ const moveSnake = (snakeHead, snakeDir, snakeCoord) => {
 }
 
 const displayScore = () => {
-  currentScoreSelector.innerText = currentScore
-  highestScoreSelector.innerText = HighestScore
-  currentScore2Selector.innerText = currentScore2
-  highestScore2Selector.innerText = HighestScore2
+  currentScoreSelector.innerText = player1.score
+  highestScoreSelector.innerText = player1.highestScore
+  currentScore2Selector.innerText = player2.score
+  highestScore2Selector.innerText = player2.highestScore
 }
 
 const checkForFoodCollision = () => {
-  let snakeHead = snakeLocation[0]
+  let snakeHead = player1.snake[0]
   if (
     snakeHead.row === foodPosition.row &&
     snakeHead.column === foodPosition.column
   ) {
-    if (HighestScore <= currentScore) {
-      HighestScore++
+    if (player1.highestScore <= player1.score) {
+      player1.highestScore++
     }
-    currentScore++
+    player1.score++
     displayScore()
     foodPosition = generateFoodPosition()
     return true
   }
 
   if (!isSinglePlayer) {
-    let snake2Head = snake2Location[0]
+    let snake2Head = player2.snake[0]
     if (
       snake2Head.row === foodPosition.row &&
       snake2Head.column === foodPosition.column
     ) {
-      if (HighestScore2 <= currentScore2) {
-        HighestScore2++
+      if (player2.highestScore <= player2.score) {
+        player2.highestScore++
       }
-      currentScore2++
+      player2.score++
       displayScore()
       foodPosition = generateFoodPosition()
       return true
@@ -137,66 +136,40 @@ const checkForFoodCollision = () => {
   }
 }
 
-const checkForGameOver = (intervalID) => {
-  let snakeHead = snakeLocation[0]
-  let snake2Head = snake2Location[0]
+const GameOver = (intervalID) => {
+  isGameOver(player1, player2)
+  if (!isSinglePlayer) {
+    isGameOver(player2, player1)
+  }
+}
 
-  let selfCollision = snakeLocation.slice(1).some((element) => {
-    if (element.row === snakeHead.row && element.column === snakeHead.column) {
+const isGameOver = (player, otherPlayer) => {
+  let head = player.snake[0]
+
+  let selfCollision = player.snake.slice(1).some((element) => {
+    if (element.row === head.row && element.column === head.column) {
       return true
     }
   })
-  let collisionWithSnake2 = snake2Location.some((element) => {
-    if (snakeHead.row === element.row && snakeHead.column === element.column) {
+
+  let collisionWith = otherPlayer.snake.some((element) => {
+    if (head.row === element.row && head.column === element.column) {
       return true
     }
   })
 
   if (
-    snakeHead.row === 31 ||
-    snakeHead.column === 31 ||
-    snakeHead.row === 0 ||
-    snakeHead.column === 0 ||
+    head.row === 31 ||
+    head.column === 31 ||
+    head.row === 0 ||
+    head.column === 0 ||
     selfCollision ||
-    collisionWithSnake2
+    collisionWith
   ) {
-    currentScore = 0
-    snakeDirection = 'right'
+    player.score = 0
+    player.direction = player.defaultDirection
     displayScore()
-    snakeLocation = [{ row: 15, column: 15 }]
-  }
-
-  if (!isSinglePlayer) {
-    let selfCollision = snake2Location.slice(1).some((element) => {
-      if (
-        element.row === snake2Head.row &&
-        element.column === snake2Head.column
-      ) {
-        return true
-      }
-    })
-    let collisionWithSnake1 = snakeLocation.some((element) => {
-      if (
-        snake2Head.row === element.row &&
-        snake2Head.column === element.column
-      ) {
-        return true
-      }
-    })
-
-    if (
-      snake2Head.row === 31 ||
-      snake2Head.column === 31 ||
-      snake2Head.row === 0 ||
-      snake2Head.column === 0 ||
-      selfCollision ||
-      collisionWithSnake1
-    ) {
-      currentScore2 = 0
-      snake2Direction = 'left'
-      displayScore()
-      snake2Location = [{ row: 15, column: 15 }]
-    }
+    player.snake = [{ row: 15, column: 15 }]
   }
 }
 
@@ -209,32 +182,32 @@ const startGame = () => {
   const intervalID = setInterval(() => {
     snakeMovement()
     createGame()
-    checkForGameOver(intervalID)
+    GameOver(intervalID)
   }, 170)
 }
 
 /////////////////////////// Eventhandlers ///////////////////////////
 
 const snake1DirHandler = (event) => {
-  if (event.key === 'ArrowRight' && snakeDirection !== 'left') {
-    snakeDirection = 'right'
-  } else if (event.key === 'ArrowLeft' && snakeDirection !== 'right') {
-    snakeDirection = 'left'
-  } else if (event.key === 'ArrowUp' && snakeDirection !== 'down') {
-    snakeDirection = 'up'
-  } else if (event.key === 'ArrowDown' && snakeDirection !== 'up') {
-    snakeDirection = 'down'
+  if (event.key === 'ArrowRight' && player1.direction !== 'left') {
+    player1.direction = 'right'
+  } else if (event.key === 'ArrowLeft' && player1.direction !== 'right') {
+    player1.direction = 'left'
+  } else if (event.key === 'ArrowUp' && player1.direction !== 'down') {
+    player1.direction = 'up'
+  } else if (event.key === 'ArrowDown' && player1.direction !== 'up') {
+    player1.direction = 'down'
   }
 }
 const snake2DirHandler = (event) => {
-  if (event.key === 'd' && snake2Direction !== 'left') {
-    snake2Direction = 'right'
-  } else if (event.key === 'a' && snake2Direction !== 'right') {
-    snake2Direction = 'left'
-  } else if (event.key === 'w' && snake2Direction !== 'down') {
-    snake2Direction = 'up'
-  } else if (event.key === 's' && snake2Direction !== 'up') {
-    snake2Direction = 'down'
+  if (event.key === 'd' && player2.direction !== 'left') {
+    player2.direction = 'right'
+  } else if (event.key === 'a' && player2.direction !== 'right') {
+    player2.direction = 'left'
+  } else if (event.key === 'w' && player2.direction !== 'down') {
+    player2.direction = 'up'
+  } else if (event.key === 's' && player2.direction !== 'up') {
+    player2.direction = 'down'
   }
 }
 
