@@ -111,7 +111,7 @@ const FoodCollision = (player) => {
   }
 }
 
-const GameOver = (intervalID) => {
+const GameOver = () => {
   isGameOver(player1, player2)
   if (!isSinglePlayer) {
     isGameOver(player2, player1)
@@ -156,8 +156,8 @@ const startGame = () => {
 
   const intervalID = setInterval(() => {
     snakeMovement()
+    GameOver()
     createGame()
-    GameOver(intervalID)
   }, 170)
 }
 
