@@ -64,7 +64,6 @@ const generateFoodPosition = () => {
 
 const snakeMovement = () => {
   moveSnake(player1)
-
   if (!isSinglePlayer) {
     moveSnake(player2)
   }
@@ -87,7 +86,7 @@ const moveSnake = (player) => {
       break
   }
   player.snake.unshift(head)
-  if (!checkForFoodCollision()) {
+  if (!FoodCollision(player)) {
     player.snake.pop()
   }
 }
@@ -99,35 +98,16 @@ const displayScore = () => {
   highestScore2Selector.innerText = player2.highestScore
 }
 
-const checkForFoodCollision = () => {
-  let snakeHead = player1.snake[0]
-  if (
-    snakeHead.row === foodPosition.row &&
-    snakeHead.column === foodPosition.column
-  ) {
-    if (player1.highestScore <= player1.score) {
-      player1.highestScore++
+const FoodCollision = (player) => {
+  let head = player.snake[0]
+  if (head.row === foodPosition.row && head.column === foodPosition.column) {
+    if (player.highestScore <= player.score) {
+      player.highestScore++
     }
-    player1.score++
+    player.score++
     displayScore()
     foodPosition = generateFoodPosition()
     return true
-  }
-
-  if (!isSinglePlayer) {
-    let snake2Head = player2.snake[0]
-    if (
-      snake2Head.row === foodPosition.row &&
-      snake2Head.column === foodPosition.column
-    ) {
-      if (player2.highestScore <= player2.score) {
-        player2.highestScore++
-      }
-      player2.score++
-      displayScore()
-      foodPosition = generateFoodPosition()
-      return true
-    }
   }
 }
 
