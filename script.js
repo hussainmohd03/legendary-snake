@@ -63,37 +63,32 @@ const generateFoodPosition = () => {
 }
 
 const snakeMovement = () => {
-  let snakeHead = { ...player1.snake[0] }
-  let snakeDir = player1.direction
-  moveSnake(snakeHead, snakeDir, player1.snake)
+  moveSnake(player1)
 
   if (!isSinglePlayer) {
-    snakeHead = { ...player2.snake[0] }
-    snakeDir = player2.direction
-    moveSnake(snakeHead, snakeDir, player2.snake)
+    moveSnake(player2)
   }
 }
 
-const moveSnake = (snakeHead, snakeDir, snakeCoord) => {
-  switch (snakeDir) {
+const moveSnake = (player) => {
+  let head = { ...player.snake[0] }
+  switch (player.direction) {
     case 'right':
-      snakeHead.column++
+      head.column++
       break
     case 'left':
-      snakeHead.column--
+      head.column--
       break
     case 'up':
-      snakeHead.row--
+      head.row--
       break
     case 'down':
-      snakeHead.row++
+      head.row++
       break
   }
-
-  snakeCoord.unshift(snakeHead)
-
+  player.snake.unshift(head)
   if (!checkForFoodCollision()) {
-    snakeCoord.pop()
+    player.snake.pop()
   }
 }
 
