@@ -26,11 +26,11 @@ A browser-based implementation of the classic Snake game, built using HTML, CSS,
 
 #### 🧠 Pseudocode
 
-See !(./Plan/)
+[See Pseudocode](./Plan/)
 
 #### 🖼 Wireframes
 
-![See WireFrames](./Plan/WireFrames)
+[See WireFrames](./Plan/WireFrames)
 
 ---
 
@@ -86,6 +86,6 @@ start index.html => windows
 
 ### **_Credits_**
 
-- Font From ![Google Fonts](https://fonts.google.com/specimen/Cinzel+Decorative)
-- Slytherin Background ![Slytherin Background](https://www.reddit.com/r/harrypotter/comments/5qdlob/heres_a_slytherin_background_for_ya_not_my_art/)
+- Font From [Google Fonts](https://fonts.google.com/specimen/Cinzel+Decorative)
+- Slytherin Background [Slytherin Background](https://www.reddit.com/r/harrypotter/comments/5qdlob/heres_a_slytherin_background_for_ya_not_my_art/)
 
