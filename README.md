@@ -8,9 +8,29 @@
 
 ---
 
-### **_Description_**
+### 🐍 **_Description_**
 
-A classic browser-based Snake game built with HTML, CSS, and JavaScript using DOM manipulation. Control the snake with arrow keys, eat food to grow, and avoid crashing into walls or yourself. Simple, responsive, and fun to play!
+A browser-based implementation of the classic Snake game, built using HTML, CSS, and JavaScript. Features single and two-player modes, score tracking, and a Slytherin-themed UI.
+
+---
+
+### 🔧 **_Technologies Used_**
+
+- HTML
+- CSS
+- JavaScript
+
+---
+
+### 📐 Planning & Design
+
+#### 🧠 Pseudocode
+
+![See Pseudocode](./Plan/)
+
+#### 🖼 Wireframes
+
+![See WireFrames](./Plan/WireFrames)
 
 ---
 
@@ -41,29 +61,31 @@ start index.html => windows
 
 ---
 
-### **_Technologies Used_**
-
-- HTML
-- CSS
-- JavaScript
 
 ---
 
 ### **_Screenshots_**
 
-#### Home Page Wireframe
+#### Home Page 
 
-![Home Page WireFrame](./Plan/index.png)
+![Home Page](./Plan/Screenshots/Home_Page_Screenshot.png)
 
-#### Game Page Wireframe
+#### Game Page 
 
-![Game Page WireFrame](./Plan/gamePage.png)
+![Home Page](./Plan/Screenshots/Game_Page_Screenshot.png)
 
 
 ---
 
 ### **_Future Updates_**
 
+- [] 🎮 Mobile-friendly touch controls
+- [] 💥 Sound effects
+- [] ⏸️ Pause Button
 ---
 
 ### **_Credits_**
+
+- Font From ![Google Fonts](https://fonts.google.com/specimen/Cinzel+Decorative)
+- Slytherin Background ![Slytherin Background](https://www.reddit.com/r/harrypotter/comments/5qdlob/heres_a_slytherin_background_for_ya_not_my_art/)
+
