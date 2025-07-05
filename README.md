@@ -26,7 +26,7 @@ A browser-based implementation of the classic Snake game, built using HTML, CSS,
 
 #### 🧠 Pseudocode
 
-![See Pseudocode](./Plan/)
+See !(./Plan/)
 
 #### 🖼 Wireframes
 
